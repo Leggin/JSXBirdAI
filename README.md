@@ -12,13 +12,13 @@ $ http-server .
 Every ball is an independent neural net of size (5,4,1), which means it has an input layer of 5 nodes, one hidden layer of 4 nodes and an ouput layer of 1 node. 
 #### Input layer
 The 5 input nodes are what each ball "sees":
-| Input index | Input value |
-| ------ | ------ |
-| 0 | the y coordinate of the ball |
-| 1 | the x coordinate of the closest obstacle |
-| 2 | the y coordinate of the top border of the closest obstacle |
-| 3 | the y coordinate of the bottom border of the closest obstacle |
-| 4 | the current velocity of the ball |
+Input index | Input value 
+ ------ | ------ 
+ 0 | the y coordinate of the ball 
+ 1 | the x coordinate of the closest obstacle 
+ 2 | the y coordinate of the top border of the closest obstacle 
+ 3 | the y coordinate of the bottom border of the closest obstacle 
+ 4 | the current velocity of the ball 
 
 ### Output layer
 The output layer consists of one node with sigmoid as activation function. Which means, that the output is either 1 or 0.
