@@ -1,6 +1,6 @@
 const OBSTACLE_WIDTH = 5;
 const OBSTACLE_HEIGHT = 30;
-const OBSTACLE_SPACE = { lower: 8, upper: 15 };
+const OBSTACLE_SPACE = { lower: 4, upper: 10 };
 
 class ObstacleCourse {
     constructor(board, obstacleCount, obstacleDistance) {

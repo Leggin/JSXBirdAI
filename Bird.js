@@ -33,6 +33,10 @@ class Bird {
         this.addVerticalForce(this.lift);
     }
 
+    mutate(func) {
+        this.brain.mutate(func);
+    }
+
     think(closestObstacle) {
         if (closestObstacle != null) {
 
@@ -47,7 +51,7 @@ class Bird {
             inputs[2] = Utilities.map(closestObstacle.top, 0, constants.GAME_HEIGHT, 0, 1);
             //bottom of closest obtacle
             inputs[3] = Utilities.map(closestObstacle.bot, 0, constants.GAME_HEIGHT, 0, 1);
-            //if bird goes up or down
+            //velocity of bird
             inputs[4] = Utilities.map(this.velocity, -1, 1, 0, 1);
             //get the outputs from the network
             let action = this.brain.predict(inputs);
@@ -58,9 +62,17 @@ class Bird {
         }
     }
 
+    getWeights() {
+        return [this.brain.weights_ih.data, this.brain.weights_ho.data];
+    }
+
+    rebreed(parentA, parentB) {
+        Breeding.getNewBreed(this, parentA, parentB);
+    }
+
     die() {
         this.dead = true;
-        this.x = -1;
+        this.x = -100;
     }
 
     performThinkingAction(prediction) {

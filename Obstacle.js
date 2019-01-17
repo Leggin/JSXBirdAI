@@ -49,8 +49,10 @@ class Obstacle {
         }
     }
 
+    // space between block is random value in range of spaceRange 
     getTopBot(height, spaceRange) {
         let space = Utilities.rand(spaceRange.lower, spaceRange.upper);
+
         let top = Utilities.rand(2, height - space - 2);
         let bot = top + space;
         return [-top, -bot];

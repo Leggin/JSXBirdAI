@@ -28,6 +28,15 @@ class BirdPopulation {
         return true;
     }
 
+    anyoneDead() {
+        for (let bird of this.population) {
+            if (bird.dead === true) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     markCollisions(obstacles) {
         let closestObstacle = this.getClosestObstacle(obstacles);
         this.population.forEach(bird => {
@@ -35,7 +44,6 @@ class BirdPopulation {
                 bird.die();
             }
         });
-
     }
 
     letBirdsThink(obstacles) {
@@ -94,23 +102,59 @@ class BirdPopulation {
         });
     }
 
+    getRandomBird(pop) {
+        let rand = Math.floor(Math.random() * pop.length);
+        return pop[rand];
+    }
+
+    drawFromTwoPopulations(popA, popB) {
+        if (Math.random() < 0.5) {
+            return this.getRandomBird(popA);
+        }
+        else {
+            return this.getRandomBird(popA);
+        }
+    }
+
+    // rebreeds a random amount of times the birds from 97% population, this can rebreed the same bird multiple times
+    breed(popA, popB) {
+        let newPopB = [];
+        for (let i = 0; i < popB.length; i++) {
+            let parentA = this.drawFromTwoPopulations(popA, popB); // get random parent from any population 
+            let parentB = this.drawFromTwoPopulations(popA, popB); //  again
+
+            let breedBird = popB[i];   // get random bird from remaining 97% and rebreed it
+            breedBird.rebreed(parentA, parentB);
+            newPopB.push(breedBird);
+        }
+        popB = [];
+        return newPopB;
+    }
+
     newGeneration() {
         this.reviveAll();
         this.resetPosition();
         let sortedPopulation = this.deadPopulation.sort((a, b) =>
-            a.score - b.score
+            b.score - a.score
         );
         this.resetScore(sortedPopulation);
 
-        // take top 10% of last generation an keep it in new 
-        this.population = sortedPopulation.splice(0, Math.ceil(10 / sortedPopulation.length));
+        // take top 3% of last generation and keep it in new one
+        this.population = sortedPopulation.splice(0, Math.ceil(sortedPopulation.length * 0.03));
 
-        // mutate the rest
-        sortedPopulation.forEach(bird => {
-            bird.brain.mutate(e => Math.random() * 2 - 1);
+        let newBreed = this.breed(this.population, sortedPopulation);
+
+
+        // mutate now randomly with 8% chance (arbitrary value but not to big and not to small)
+        newBreed.forEach(bird => {
+            let r = Math.random();
+            if (r < 0.08) {
+                //bird.mutate(e => Math.random() * 2 - 1);
+            }
         });
 
-        this.population = this.population.concat(sortedPopulation);
+        this.population = this.population.concat(newBreed);
+
         this.deadPopulation = [];
     }
 }

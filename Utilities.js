@@ -16,6 +16,5 @@ class Utilities {
         } else {
             return this.constrain(newval, stop2, start2);
         }
-    };
-
+    }
 }

@@ -2,15 +2,16 @@ class Game {
 
     constructor() {
         this.animate = this.animate.bind(this);
-        this.board = JXG.JSXGraph.initBoard('jxgbox', { boundingbox: [0, 0, constants.GAME_WIDTH, -constants.GAME_HEIGHT], keepaspectratio: true, axis: false });
+        this.board = JXG.JSXGraph.initBoard('jxgbox', {
+            boundingbox: [0, 0, constants.GAME_WIDTH, -constants.GAME_HEIGHT], keepaspectratio: true, axis: false
+        });
         this.birdPop = new BirdPopulation(this.board, 600);
         this.obstacleCourse = new ObstacleCourse(this.board, 3, 20);
-        this.animationPoint = this.board.create('point', [-1, 1]);
+        this.animationPoint = this.board.create('point', [-1, 1], { visible: false });
         this.generationCounter = 0;
         this.generationText = this.board.create('text', [48, -2, () => { return "Generation: ".concat(String(this.generationCounter)); }], { fontsize: 30, opacity: 0.7 });
         this.highscore = 0;
         this.highscoreText = this.board.create('text', [48, -4, () => { return "High Score: ".concat(String(this.highscore)); }], { fontsize: 20, opacity: 0.7 });
-
     }
 
     start() {

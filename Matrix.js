@@ -1,3 +1,4 @@
+//from: https://github.com/shiffman/NOC-S18/tree/master/week10/neuroevolution-flappybird/nn
 class Matrix {
   constructor(rows, cols) {
     this.rows = rows;
@@ -21,7 +22,7 @@ class Matrix {
 
   static subtract(a, b) {
     if (a.rows !== b.rows || a.cols !== b.cols) {
-      console.log('Columns and Rows of A must match Columns and Rows of B.');
+      ('Columns and Rows of A must match Columns and Rows of B.');
       return;
     }
 

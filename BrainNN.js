@@ -1,3 +1,4 @@
+// based on: https://github.com/shiffman/NOC-S18/tree/master/week10/neuroevolution-flappybird/nn
 // Other techniques for learning
 
 class ActivationFunction {
