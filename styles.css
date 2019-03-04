@@ -1,0 +1,36 @@
+h1,h2,h3,h4,h5,h6 {
+    font-weight: bold;
+    color: #222222;
+    letter-spacing: 1.4px;
+    border-bottom: solid 1px #373d49;
+    text-transform: uppercase;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Source Sans Pro,Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+p,th,tr {
+    font-family: Verdana;
+    color: #373d49;
+    line-height: 1.5;
+    letter-spacing: .25px;
+}
+td,th{
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+th{
+  padding: 12px;
+  text-align: left;
+  background-color: rgb(179, 179, 179);
+  color: rgb(58, 58, 58);
+  
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+
+
+a {
+    color: #373d49;
+}

@@ -1,9 +1,17 @@
 <head>
     <link rel="stylesheet" type="text/css" href="//jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" />
     <script type="text/javascript" src="//jsxgraph.uni-bayreuth.de/distrib/jsxgraphcore.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
 </head>
 
 <body>
+
+    <h1 id="jsxbirdai">JSXBirdAI</h1>
+
+    <p>JSXBirdAI is a flappy bird ai implemented in the <a
+            href="https://jsxgraph.uni-bayreuth.de/wp/index.html">JSXGraph library</a>. The ai optimizes how to play
+        flappy bird with unsupervised learning, which is implemented as evolutionary algorithm.</p>
     <div id="jxgbox" class="jxgbox" style="width:1200px; height:600px;"></div>
     <script src="Breeding.js"></script>
     <script src="BirdPopulation.js"> </script>
@@ -17,6 +25,61 @@
     <script src="ObstacleCourse.js"> </script>
     <script src="Game.js"> </script>
     <script src="UnitTests.js"> </script>
+
+
+    <h2><a id="How_the_AI_works_21"></a>How the AI works</h2>
+    <p>Every ball is an independent neural net of size (5,4,1), which means it has an input layer of 5 nodes, one hidden
+        layer of 4 nodes and an ouput layer of 1 node.</p>
+    <h4><a id="Input_layer_25"></a>Input layer</h4>
+    <p>The 5 input nodes are what each ball “sees”:</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Input index</th>
+                <th>Input value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0</td>
+                <td>the y coordinate of the ball</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>the x coordinate of the closest obstacle</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>the y coordinate of the top border of the closest obstacle</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>the y coordinate of the bottom border of the closest obstacle</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>the current velocity of the ball</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3><a id="Output_layer_41"></a>Output layer</h3>
+    <p>The output layer consists of one node with sigmoid as activation function. Which means, that the output is either
+        1 or 0.</p>
+    <p>If the output is 1, the ball will perform a jump (which is the equivalent of tapping when playing the game
+        yourself). If the output is 0, nothing will happen.</p>
+    <h3><a id="Functionality_49"></a>Functionality</h3>
+    <p>At the beginning of the animation 600 balls are generated. Each ball has its own neural net. At each animation
+        step, each ball performs a prediction with the given inputs from above. The output of this prediction is then
+        performed on each ball. For each pixel that a ball has progressed through the obstacle course in x-direction, it
+        receives a point. If a ball touches an obstacle, it is removed from the animation, but held in an list of “dead”
+        balls. When there is no ball left, a new generation is created in which 3% of the best scoring balls are
+        remixed. Then the remaining 97% are “rebreeded”, this means that their “genes” (which is the weights of the net)
+        are crossed with genes of a different ball. This results in a completely new neural net. Then every ball is
+        mutated with a chance of 8%. The mutation is that each weight in the neural net is multiplied by a random value
+        between -1 and 1 as well as each bias. This results in a different neural network, which in turn performs the
+        obstacle course differently than before.</p>
+    <p><em>The hope is that after a few generations, randomness will result in a neural network that will carry out the
+            obstacle course without crashing.</em></p>
 
 
 </body>
